@@ -121,7 +121,7 @@ module System
     config.assets.digest = true
     config.assets.initialize_on_precompile = false
 
-    config.assets.version = 1437647386 # unix timestamp
+    config.assets.version = '1437647386' # unix timestamp
 
 
     config.serve_static_files = false
