@@ -244,6 +244,8 @@ module System
       System.redis = System::RedisPool.new(config.redis)
     end
 
+    config.assets.quiet = true
+
     initializer :jobs do
       # Loading jobs used by Whenever
       require_relative 'jobs'
