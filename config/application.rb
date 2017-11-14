@@ -101,9 +101,9 @@ module System
     config.assets.enabled = true
 
     config.assets.precompile = []
-    config.assets.precompile << ->(path) do
-      basename = File.basename(path)
-      next if path =~ %r{^jspm_packages/[^/]+/}
+    config.assets.precompile << ->(filename, _path) do
+      basename = File.basename(filename)
+      next if filename =~ %r{^jspm_packages/[^/]+/}
 
       extname = File.extname(basename)
 
