@@ -154,6 +154,10 @@ GEM
       nokogiri (~> 1.4)
     activemodel (5.0.6)
       activesupport (= 5.0.6)
+    activemodel-serializers-xml (1.0.2)
+      activemodel (> 5.x)
+      activesupport (> 5.x)
+      builder (~> 3.1)
     activerecord (5.0.6)
       activemodel (= 5.0.6)
       activesupport (= 5.0.6)
@@ -204,9 +208,9 @@ GEM
     bugsnag (6.6.4)
       concurrent-ruby (~> 1.0)
     builder (3.2.3)
-    bullet (4.14.7)
+    bullet (5.6.1)
       activesupport (>= 3.0.0)
-      uniform_notifier (~> 1.9.0)
+      uniform_notifier (~> 1.10.0)
     cancancan (1.7.1)
     capybara (2.13.0)
       addressable
@@ -299,10 +303,11 @@ GEM
     dotenv-rails (2.2.1)
       dotenv (= 2.2.1)
       railties (>= 3.2, < 5.2)
-    draper (2.1.0)
-      actionpack (>= 3.0)
-      activemodel (>= 3.0)
-      activesupport (>= 3.0)
+    draper (3.0.1)
+      actionpack (~> 5.0)
+      activemodel (~> 5.0)
+      activemodel-serializers-xml (~> 1.0)
+      activesupport (~> 5.0)
       request_store (~> 1.0)
     dynamic_form (1.1.4)
     email_spec (1.5.0)
@@ -392,6 +397,10 @@ GEM
       thor
       xml-simple
     liquid (3.0.6)
+    listen (3.1.5)
+      rb-fsevent (~> 0.9, >= 0.9.4)
+      rb-inotify (~> 0.9, >= 0.9.7)
+      ruby_dep (~> 1.2)
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -566,7 +575,7 @@ GEM
       uber (~> 0.0.11)
     representable (2.3.0)
       uber (~> 0.0.7)
-    request_store (1.2.0)
+    request_store (1.3.2)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -623,6 +632,7 @@ GEM
     ruby-openid (2.6.0)
     ruby-prof (0.15.8)
     ruby-progressbar (1.9.0)
+    ruby_dep (1.5.0)
     ruby_event_store (0.9.0)
     rubyzip (1.1.7)
     rufus-scheduler (3.0.9)
@@ -757,7 +767,7 @@ GEM
     unicorn-rails (2.2.1)
       rack
       unicorn
-    uniform_notifier (1.9.0)
+    uniform_notifier (1.10.0)
     user_agent_parser (2.2.0)
     uuidtools (2.1.5)
     webmock (1.24.6)
@@ -828,7 +838,7 @@ DEPENDENCIES
   developer_portal!
   diff-lcs (~> 1.2)
   dotenv-rails (~> 2.0)
-  draper (~> 2.0)
+  draper (~> 3.0)
   dynamic_form
   email_spec
   equivalent-xml
@@ -858,6 +868,7 @@ DEPENDENCIES
   launchy
   license_finder (~> 2.1.2)
   license_finder_xml_reporter!
+  listen
   m (~> 1.5.0)
   mail_view (~> 2.0.4)
   mechanize

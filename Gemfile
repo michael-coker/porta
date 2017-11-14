@@ -15,7 +15,6 @@ gem 'airbrake', '~> 4.3.3'
 group :production, :preview, :development do
   gem 'newrelic-redis'
   gem 'newrelic_rpm', '~>3.5'
-  gem 'rpm_contrib'
 end
 
 gem '3scale_client', '~> 2.6.1', require: false
