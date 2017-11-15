@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative 'boot'
 
 require 'rails/all'
@@ -200,6 +201,7 @@ module System
 
     require 'three_scale/middleware/multitenant'
     require 'three_scale/middleware/dev_domain'
+
     config.middleware.use ThreeScale::Middleware::Multitenant, :tenant_id
     config.middleware.use ThreeScale::Middleware::DevDomain, config.three_scale.dev_domain_regexp, config.three_scale.dev_domain_replacement if config.three_scale.dev_domain
     config.middleware.insert_before Rack::Runtime, Rack::UTF8Sanitizer
