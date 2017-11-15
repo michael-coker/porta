@@ -4,7 +4,7 @@ module TestHelpers
   module TransactionalFixtures
     def disable_transactional_fixtures!
 
-      self.use_transactional_fixtures = false
+      self.use_transactional_tests = false
 
       self.teardown do
         DatabaseCleaner.clean_with :deletion
