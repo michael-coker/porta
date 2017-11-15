@@ -139,11 +139,9 @@ end
 namespace :integrate do
 
   task :prepare do
-    silence_stream(STDOUT) do
-      require 'system/database'
-      ParallelTests::Tasks.run_in_parallel('RAILS_ENV=test rake db:drop db:create db:schema:load multitenant:triggers')
-      Rake::Task['ts:configure'].invoke
-    end
+    ParallelTests::Tasks.run_in_parallel('RAILS_ENV=test rake db:drop db:create db:schema:load multitenant:triggers')
+
+    Rake::Task['ts:configure'].invoke
   end
 
 end
