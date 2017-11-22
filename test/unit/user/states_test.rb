@@ -1,24 +1,17 @@
-require File.expand_path(File.dirname(__FILE__) + '/../../test_helper')
+require 'test_helper'
 
 class User::StatesTest < ActiveSupport::TestCase
 
   test 'notify_activation for first_admin' do
-    account = Factory(:simple_provider)
+    account = FactoryGirl.create(:simple_provider)
 
-    user1 = Factory(:admin, account: account)
-    user1.activate!
-
-    user2 = Factory(:admin, account: account)
-    user2.activate!
-
+    user1 = FactoryGirl.create(:admin, account: account)
     ThreeScale::Analytics.expects(:track).with(user1, instance_of(String)).once
-
-    user1.send(:_run_after_commit_queue)
-    user2.send(:_run_after_commit_queue)
+    user1.activate!
   end
 
   test 'initializes activation_code upon creation' do
-    user = Factory(:simple_user)
+    user = FactoryGirl.create(:simple_user)
     assert_not_nil user.activation_code
   end
 
@@ -32,7 +25,7 @@ class User::StatesTest < ActiveSupport::TestCase
   end
 
   test 'activate! transitions from pending to active' do
-    user = Factory(:simple_user)
+    user = FactoryGirl.create(:simple_user)
 
     assert_change :of => user.method(:state), :from => "pending", :to => "active" do
       user.activate!
@@ -40,7 +33,7 @@ class User::StatesTest < ActiveSupport::TestCase
   end
 
   test 'suspend! transitions from active to suspended' do
-    user = Factory(:simple_user)
+    user = FactoryGirl.create(:simple_user)
     user.activate!
 
     assert_change :of => user.method(:state), :from => "active", :to => "suspended" do
@@ -49,7 +42,7 @@ class User::StatesTest < ActiveSupport::TestCase
   end
 
   test  'suspend! transitions from suspended to suspended' do
-    user = Factory(:simple_user)
+    user = FactoryGirl.create(:simple_user)
 
     user.activate!
     user.suspend!
@@ -60,7 +53,7 @@ class User::StatesTest < ActiveSupport::TestCase
   end
 
   test 'unsuspend! transitions from suspended to active' do
-    user = Factory(:simple_user)
+    user = FactoryGirl.create(:simple_user)
     user.activate!
     user.suspend!
 
@@ -70,13 +63,13 @@ class User::StatesTest < ActiveSupport::TestCase
   end
 
   test 'when user is activated, and his buyer account is created, it becomes pending' do
-    account = Factory(:buyer_account_with_provider)
+    account = FactoryGirl.create(:buyer_account_with_provider)
 
     account.update_attribute(:state, 'created')
-    account.buy! Factory(:account_plan, :approval_required => true)
+    account.buy! FactoryGirl.create(:account_plan, :approval_required => true)
     account.reload
 
-    user    = Factory(:pending_user, :account => account)
+    user    = FactoryGirl.create(:pending_user, :account => account)
 
     # FIXME: [multiservice] account is missing bought_account_contract so cannot verify plan.approval_required?
     assert account.approval_required?
@@ -86,10 +79,10 @@ class User::StatesTest < ActiveSupport::TestCase
   end
 
   test 'when user is activated, and his account is approved, it will stay approved' do
-    account = Factory(:account_without_users)
+    account = FactoryGirl.create(:account_without_users)
     account.approve!
 
-    user = Factory(:pending_user, :account => account)
+    user = FactoryGirl.create(:pending_user, :account => account)
 
     assert_no_change :of => account.method(:state) do
       user.activate!
