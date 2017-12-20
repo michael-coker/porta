@@ -58,7 +58,7 @@ module Liquid
       end
 
       def alerts
-        @contract.alerts
+        Drops::Collection.for_drop(Liquid::Drops::Alert).new(@contract.alerts)
       end
 
       desc "Returns the description of the application."
