@@ -834,7 +834,7 @@ PLATFORMS
 
 DEPENDENCIES
   3scale_client (~> 2.6.1)
-  3scale_time_range (= 0.0.6)
+  3scale_time_range (= 0.0.6)!
   RedCloth (~> 4.3)
   active-docs!
   active_merchant-adyen12!
