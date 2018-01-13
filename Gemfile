@@ -35,7 +35,7 @@ group :development, :test do
     # there is a possiblity to disable it by ENV variable & .pryrc
     # but first https://github.com/deivid-rodriguez/pry-byebug/pull/98
     # has to be merged
-    # gem 'pry-byebug', require: false, install_if: ENV.fetch('DISABLE_PRY_BYEBUG', '0') == '0'
+    gem 'pry-byebug', require: false, install_if: ENV.fetch('DISABLE_PRY_BYEBUG', '0') == '0'
     gem 'pry-stack_explorer', require: false
   end
 end

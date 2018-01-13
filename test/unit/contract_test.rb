@@ -5,10 +5,10 @@ class ContractTest < ActiveSupport::TestCase
   disable_transactional_fixtures!
 
   def test_plan_changed_is_notified_after_commit
-    plan = Factory(:account_plan, :issuer => Factory(:simple_account))
-    contract = Factory(:contract, :plan => plan)
+    plan = FactoryGirl.create(:account_plan, :issuer => FactoryGirl.create(:simple_account))
+    contract = FactoryGirl.create(:account_contract, :plan => plan)
 
-    other_plan = Factory(:account_plan, :issuer => Factory(:simple_account))
+    other_plan = FactoryGirl.create(:account_plan, :issuer => FactoryGirl.create(:simple_account))
 
     Contract.transaction do
       contract.change_plan!(other_plan)
@@ -22,11 +22,11 @@ class ContractTest < ActiveSupport::TestCase
   end
 
   def test_plan_changed_is_notified_just_once
-    plan = Factory(:account_plan, :issuer => Factory(:simple_account))
-    contract = Factory(:contract, :plan => plan)
+    plan = FactoryGirl.create(:account_plan, :issuer => FactoryGirl.create(:simple_account))
+    contract = FactoryGirl.create(:account_contract, :plan => plan)
 
     ## explicit transaction
-    other_plan = Factory(:account_plan, :issuer => Factory(:simple_account))
+    other_plan = FactoryGirl.create(:account_plan, :issuer => FactoryGirl.create(:simple_account))
 
     contract.expects(:notify_observers).with(:plan_changed).once
 
@@ -37,7 +37,7 @@ class ContractTest < ActiveSupport::TestCase
     end
 
     ## just save
-    other_contract = Factory(:contract, :plan => plan)
+    other_contract = FactoryGirl.create(:account_contract, :plan => plan)
 
     other_contract.expects(:notify_observers).with(:plan_changed).once
     other_contract.expects(:notify_observers).with(:bill_variable_for_plan_changed, kind_of(Plan)).once
