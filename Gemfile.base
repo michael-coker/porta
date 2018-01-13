@@ -81,7 +81,7 @@ end
 
 gem 'nokogiri', '>= 1.6.8'
 gem 'dalli', '~> 2.7'
-gem 'secure_headers', '~> 5.0'
+gem 'secure_headers', '~> 2.2'
 gem 'faraday_middleware'
 
 gem 'rails_event_store', '~> 0.9.0'
