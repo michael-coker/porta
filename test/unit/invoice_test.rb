@@ -419,6 +419,7 @@ class InvoiceTest < ActiveSupport::TestCase
     @buyer.expects(:charge!).returns(true)
     @provider.stubs(:payment_gateway_unconfigured?).returns(false)
     @invoice.update_attribute(:state, 'pending')
+    @invoice.expects(:notify_buyer_about_payment)
 
     assert @invoice.charge!, 'Invoice should charge!'
   end

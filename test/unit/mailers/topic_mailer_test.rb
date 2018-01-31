@@ -11,8 +11,9 @@ class TopicMailerTest < ActionMailer::TestCase
     post =  FactoryGirl.create(:post, user: sender)
     subscriber =  FactoryGirl.build_stubbed(:simple_user, account: @buyer)
 
-    TopicMailer.new_post(subscriber, post).deliver_now
-    assert_equal 1, ActionMailer::Base.deliveries.count
+    assert_difference ActionMailer::Base.deliveries.method(:count), +1 do
+      TopicMailer.new_post(subscriber, post).deliver_now
+    end
   end
 
   test 'send from provider' do
