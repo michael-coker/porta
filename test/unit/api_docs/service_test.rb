@@ -3,14 +3,23 @@ require 'test_helper'
 
 class ApiDocs::ServiceTest < ActiveSupport::TestCase
 
-  test 'save and skip_swagger_validations' do
-    service = ApiDocs::Service.new(name: 'but I send a email making noise', body: '{}', skip_swagger_validations: '0')
-    service.specification.expects(:validate!).once
-    service.save
+  def setup
+    @notify = NotificationCenter.disabled.dup
+    NotificationCenter.disabled << ApiDocs::Service
+  end
 
-    service = ApiDocs::Service.new(name: 'instead of create an issue', body: '{}', skip_swagger_validations: '1')
-    service.specification.expects(:validate!).never
-    service.save
+  def teardown
+    NotificationCenter.disabled = @notify
+  end
+
+  test 'save and skip_swagger_validations' do
+      service = ApiDocs::Service.new(name: 'but I send a email making noise', body: '{}', skip_swagger_validations: '0')
+      service.specification.expects(:validate!).once
+      service.save!
+
+      service = ApiDocs::Service.new(name: 'instead of create an issue', body: '{}', skip_swagger_validations: '1')
+      service.specification.expects(:validate!).never
+      service.save!
   end
 
   test 'base_path notifications' do
