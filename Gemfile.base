@@ -206,7 +206,7 @@ group :test do
   gem 'webmock', '~> 1.21', require: false
   gem 'launchy'
   gem 'mechanize'
-
+  gem 'parallel_tests', '~> 2.3'
 
   gem 'childprocess'
 
@@ -243,7 +243,7 @@ group :test do
 end
 
 group :development, :test do
-  gem 'parallel_tests', '~> 2.3'
+
   gem 'unicorn-rails'
 
   gem 'pry-rails'
