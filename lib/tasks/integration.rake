@@ -111,7 +111,7 @@ task :integrate, :log do |_, args|
   results = tasks.map do |task|
 
     command = nil
-    result = report.execute(task, env: {RAILS_ENV: Rails.env}) do |cmd|
+    result = report.execute(task, env: {RAILS_ENV: Rails.env, DISABLE_DATABASE_ENVIRONMENT_CHECK: '1'}) do |cmd|
       banner.("BEGIN: #{cmd}")
       command = cmd
     end
