@@ -113,10 +113,6 @@ module ServiceDiscovery
       assert_equal 8080, annotated_port_service.port_number.to_i
     end
 
-    test 'description path' do
-      assert_equal 'api/doc', @cluster_service.description_path
-    end
-
     test 'host' do
       assert_equal 'fake-api.fake-project.svc.cluster.local', @cluster_service.host
     end
@@ -131,6 +127,18 @@ module ServiceDiscovery
 
     test 'endpoint' do
       assert_equal 'http://fake-api.fake-project.svc.cluster.local:8081/api', @cluster_service.endpoint
+    end
+
+    test 'description path' do
+      assert_equal 'api/doc', @cluster_service.description_path
+    end
+
+    test 'specification url' do
+      assert_equal 'http://fake-api.fake-project.svc.cluster.local:8081/api/doc', @cluster_service.specification_url
+
+      cluster_service_data = @cluster_service_data.deep_merge(metadata: { annotations: { :'discovery.3scale.net/description-path' => 'https://example.com/api-doc.json' } })
+      cluster_service = ClusterService.new(cluster_service(cluster_service_data))
+      assert_equal 'https://example.com/api-doc.json', cluster_service.specification_url
     end
 
     private

@@ -10,6 +10,7 @@ class Service < ApplicationRecord
   include Logic::RollingUpdates::Service
   include SystemName
   extend System::Database::Scopes::IdOrSystemName
+  include ServiceDiscovery::ModelExtensions::Service
 
   has_system_name uniqueness_scope: :account_id
 

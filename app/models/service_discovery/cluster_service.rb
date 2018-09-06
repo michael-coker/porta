@@ -64,6 +64,24 @@ module ServiceDiscovery
     alias path annotated_path
     alias description_path annotated_description_path
 
+    def specification
+      fetch_specification unless specification_fetched?
+      @specification
+    end
+
+    def specification_url
+      description_path.starts_with?('http') ? description_path : "#{root}/#{description_path}"
+    end
+
+    def specification_type
+      fetch_specification unless specification_fetched?
+      @specification_type
+    end
+
+    def oas?
+      specification_type.to_s.starts_with?('application/swagger+json')
+    end
+
     def discoverable?
       discovery_label(:discoverable).to_s == 'true'
     end
@@ -85,6 +103,21 @@ module ServiceDiscovery
       else
         { name: annotated_port }
       end
+    end
+
+    def specification_fetched?
+      !!@specification_fetched
+    end
+
+    def fetch_specification
+      response = RestClient.get(specification_url)
+      @specification_fetched = true
+      @specification_type = response.headers[:content_type]
+      @specification = response.body
+    rescue SocketError, RestClient::Exception, Errno::ECONNREFUSED, Errno::ECONNRESET => exception
+      Rails.logger.error "Could not fetch specification of #{self_link}: #{exception.message}"
+      @specification_fetched = false
+      nil
     end
   end
 end
