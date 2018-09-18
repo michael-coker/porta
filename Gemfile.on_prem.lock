@@ -147,7 +147,7 @@ GEM
     activejob (5.0.6)
       activesupport (= 5.0.6)
       globalid (>= 0.3.6)
-    activemerchant (1.74.0)
+    activemerchant (1.77.0)
       activesupport (>= 3.2.14, < 6.x)
       builder (>= 2.1.2, < 4.0.0)
       i18n (>= 0.6.9)
@@ -235,7 +235,8 @@ GEM
     ci_reporter_rspec (1.0.0)
       ci_reporter (~> 2.0)
       rspec (>= 2.14, < 4)
-    climate_control (0.2.0)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
     codeclimate-test-reporter (0.4.7)
       simplecov (>= 0.7.1, < 1.0.0)
     codeclimate_batch (0.2.0)
@@ -379,6 +380,7 @@ GEM
       responders
     injectedlogger (0.0.13)
     innertube (1.1.0)
+    jaro_winkler (1.5.1)
     jmespath (1.3.1)
     joiner (0.3.4)
       activerecord (>= 4.1.0)
@@ -452,7 +454,7 @@ GEM
     net-http-persistent (2.9.4)
     netrc (0.11.0)
     nio4r (2.1.0)
-    nokogiri (1.8.2)
+    nokogiri (1.8.4)
       mini_portile2 (~> 2.3.0)
     non-stupid-digest-assets (1.0.9)
       sprockets (>= 2.0)
@@ -471,10 +473,10 @@ GEM
       mime-types
       mimemagic (~> 0.3.0)
       terrapin (~> 0.6.0)
-    parallel (1.6.1)
+    parallel (1.12.1)
     parallel_tests (2.3.0)
       parallel
-    parser (2.5.1.0)
+    parser (2.5.1.2)
       ast (~> 2.4.0)
     pdf-reader (0.9.3)
       Ascii85 (>= 0.9)
@@ -491,7 +493,7 @@ GEM
       net-http-persistent
     polyamorous (1.3.3)
       activerecord (>= 3.0)
-    powerpack (0.1.1)
+    powerpack (0.1.2)
     prawn-format (0.2.1)
       prawn-core
     prawn-layout (0.2.1)
@@ -626,9 +628,10 @@ GEM
       json (>= 1.4.6)
       mustache (>= 0.99.4)
       rspec (>= 2.14.0)
-    rubocop (0.52.1)
+    rubocop (0.59.1)
+      jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.4.0.2, < 3.0)
+      parser (>= 2.5, != 2.5.1.1)
       powerpack (~> 0.1)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
@@ -637,7 +640,7 @@ GEM
     ruby-openid (2.6.0)
     ruby-plsql (0.6.0)
     ruby-prof (0.15.8)
-    ruby-progressbar (1.9.0)
+    ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     ruby_event_store (0.9.0)
     rubyzip (1.1.7)
@@ -766,7 +769,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.2)
-    unicode-display_width (1.3.0)
+    unicode-display_width (1.4.0)
     unicorn (5.1.0)
       kgio (~> 2.6)
       raindrops (~> 0.7)
@@ -803,15 +806,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  3scale_time_range (= 0.0.6)!
+  3scale_time_range (= 0.0.6)
   RedCloth (~> 4.3)
   active-docs!
   active_merchant-adyen12!
   activemerchant (~> 1.77.0)
-  activerecord-oracle_enhanced-adapter (~> 1.6.0)
   activemodel-serializers-xml
   activerecord-oracle_enhanced-adapter (~> 1.7.0)
-  activesupport (= 4.2.9)
   acts-as-taggable-on (~> 4.0)
   acts_as_list (~> 0.7.6)
   acts_as_tree
@@ -833,7 +834,7 @@ DEPENDENCIES
   ci_reporter_rspec (~> 1.0)
   ci_reporter_shell!
   codeclimate_rails!
-  codemirror-rails (~> 5.16)
+  codemirror-rails (~> 5.6)
   coffee-rails (~> 4.2)
   colorize
   compass-rails (~> 3.0.2)
@@ -920,7 +921,7 @@ DEPENDENCIES
   rspec-html-matchers!
   rspec-rails
   rspec_api_documentation
-  rubocop (= 0.52.1)
+  rubocop (= 0.59.1)
   ruby-oci8
   ruby-openid
   ruby-prof
