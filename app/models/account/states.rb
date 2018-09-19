@@ -78,7 +78,7 @@ module Account::States
       end
 
       event :suspend do
-        transition :approved => :suspended, if: :provider?
+        transition all => :suspended, unless: :master?
       end
 
       event :resume do

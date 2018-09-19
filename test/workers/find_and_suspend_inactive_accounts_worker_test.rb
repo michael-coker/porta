@@ -10,10 +10,9 @@ class FindAndSuspendInactiveAccountsWorkerTest < ActiveSupport::TestCase
     end
   end
 
-  test 'perform destroys inactive accounts' do # TODO: this is not the final behaviour, but step by step :)
-    assert_difference Account.method(:count), -1 do
-      FindAndSuspendInactiveAccountsWorker.new.perform
-    end
-    assert_raise(ActiveRecord::RecordNotFound) { @cinstances.first.user_account.reload }
+  test 'perform suspends inactive accounts' do
+    FindAndSuspendInactiveAccountsWorker.new.perform
+    assert @cinstances.first.user_account.reload.suspended?
+    @cinstances[1..-1].each { |cinstance| refute cinstance.user_account.reload.suspended? }
   end
 end
