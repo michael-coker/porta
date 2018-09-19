@@ -24,6 +24,7 @@ class Cinstance < Contract
   before_create :set_provider_public_key
   before_create :set_end_user_required_from_plan
   before_create :accept_on_create, :unless => :live?
+  after_destroy :achieve_as_deleted # TODO: keep in mind http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html
 
   attr_readonly :service_id
 
@@ -385,6 +386,10 @@ class Cinstance < Contract
   end
 
   private
+
+  def achieve_as_deleted
+    ::DeletedObjectEntry.create!(object: self, owner: service, metadata: {created_at: created_at})
+  end
 
   # It calls to `create_key_after_create` to check if it's possible to add
   # an application key.

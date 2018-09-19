@@ -90,6 +90,11 @@ module Account::ProviderMethods
     has_many :buyer_invoice_counters, class_name: 'InvoiceCounter', foreign_key: :provider_account_id
     has_many :buyer_line_items, through: :buyer_invoices, source: :line_items
     has_many :buyer_invitations, through: :buyer_accounts, source: :invitations
+    has_many :deleted_objects, class_name: 'DeletedObjectEntry', as: :owner
+
+    def deleted_services
+      deleted_objects.services
+    end
 
     module FindOrDefault
       def find_or_default(id = nil)

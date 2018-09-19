@@ -22,3 +22,5 @@ class DeleteAccountHierarchyWorker < DeleteObjectHierarchyWorker
   end
 
 end
+
+# TODO: call to delete Stats of this account's services

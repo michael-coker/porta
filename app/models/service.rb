@@ -29,6 +29,7 @@ class Service < ApplicationRecord
   before_destroy :stop_destroy_if_last_or_default
   before_destroy :destroy_features
   after_destroy :update_account_default_service
+  after_destroy :achieve_as_deleted # TODO: keep in mind http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html
 
   with_options(dependent: :destroy, inverse_of: :service) do |service|
     service.has_many :service_plans, as: :issuer, &DefaultPlanProxy
@@ -87,6 +88,8 @@ class Service < ApplicationRecord
   has_many :top_level_metrics, -> { includes(:children).top_level }, class_name: 'Metric'
 
   has_many :service_tokens, inverse_of: :service, dependent: :destroy
+
+  has_many :deleted_objects, class_name: 'DeletedObjectEntry', as: :owner
 
   scope :accessible, -> { where.not(state: 'deleted'.freeze) }
   scope :of_approved_accounts, -> { joins(:account).merge(Account.approved) }
@@ -201,6 +204,13 @@ class Service < ApplicationRecord
     else
       raise "unknown backend_authentication_type: #{type}"
     end
+  end
+
+  def deleted_metrics
+    deleted_objects.metrics
+  end
+  def deleted_services
+    deleted_objects.services
   end
 
   # shouldn't be here .last (?)
@@ -462,6 +472,10 @@ class Service < ApplicationRecord
   end
 
   private
+
+  def achieve_as_deleted
+    ::DeletedObjectEntry.create!(object: self, owner: account)
+  end
 
   def destroyable?
     return true if destroyed_by_association

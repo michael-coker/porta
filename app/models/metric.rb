@@ -5,6 +5,7 @@ class Metric < ApplicationRecord
 
   before_destroy :destroyable?
   before_validation :associate_to_service_of_parent
+  after_destroy :achieve_as_deleted # TODO: keep in mind http://api.rubyonrails.org/classes/ActiveRecord/Callbacks.html
 
   # update Service's updated_at when Metric caches for nicer cache keys
   belongs_to :service, touch: true
@@ -227,6 +228,10 @@ class Metric < ApplicationRecord
 
   def associate_to_service_of_parent
     self.service = parent.service if parent
+  end
+
+  def achieve_as_deleted
+    ::DeletedObjectEntry.create!(object: self, owner: service, metadata: {created_at: created_at})
   end
 
   protected
