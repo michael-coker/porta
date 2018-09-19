@@ -1,5 +1,6 @@
 module Account::States
   TIME_TO_DELETE_ACCOUNT = 15.days.freeze
+  TIME_TO_BE_INACTIVE    = 1.year.freeze
   STATES = %i[created pending approved rejected suspended scheduled_for_deletion].freeze
   extend ActiveSupport::Concern
 
@@ -96,6 +97,16 @@ module Account::States
 
     scope :deleted_time_ago, ->(value = TIME_TO_DELETE_ACCOUNT) do
       scheduled_for_deletion.where.has { deleted_at <= value.ago }
+    end
+
+    scope :without_traffic_since_time_ago, ->(value = TIME_TO_BE_INACTIVE) do
+      where.has {
+        not_exists Cinstance.where.has { user_account_id == BabySqueel[:accounts].id }.active_since_time_ago(value)
+      }
+    end
+
+    scope :inactive_since_time_ago, ->(value = TIME_TO_BE_INACTIVE) do
+      where.has { created_at <= value.ago }.without_traffic_since_time_ago(value)
     end
 
     def deletion_date
