@@ -28,7 +28,7 @@ class NotificationDeliveryServiceTest < ActiveSupport::TestCase
   end
 
   def test_invalid_event
-    event_data   = { provider: '', user: FactoryGirl.create(:simple_user) }
+    event_data   = { provider: nil, user: FactoryGirl.create(:simple_user) }
     event        = FactoryGirl.build_stubbed(:event, data: event_data)
     notification = FactoryGirl.build_stubbed(:notification)
     notification.expects(:parent_event).returns(event)
