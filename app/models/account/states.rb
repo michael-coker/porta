@@ -1,6 +1,7 @@
 module Account::States
-  TIME_TO_DELETE_ACCOUNT = 15.days.freeze
-  TIME_TO_BE_INACTIVE    = 1.year.freeze
+  TIME_TO_DELETE_ACCOUNT        = 15.days.freeze
+  TIME_TO_BE_INACTIVE           = 1.year.freeze
+  TIME_TO_SCHEDULE_FOR_DELETION = 90.days
   STATES = %i[created pending approved rejected suspended scheduled_for_deletion].freeze
   extend ActiveSupport::Concern
 
@@ -107,6 +108,10 @@ module Account::States
 
     scope :inactive_since_time_ago, ->(value = TIME_TO_BE_INACTIVE) do
       where.has { created_at <= value.ago }.without_traffic_since_time_ago(value)
+    end
+
+    scope :suspended_since_time_ago, ->(value = TIME_TO_SCHEDULE_FOR_DELETION) do
+      suspended.where.has { updated_at <= value.ago }
     end
 
     def deletion_date
