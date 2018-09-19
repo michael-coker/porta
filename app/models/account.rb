@@ -54,6 +54,7 @@ class Account < ApplicationRecord
   scope :providers, -> { where(provider: true) }
 
   scope :providers_with_master, -> { where.has { (provider == true) | (master == true) } }
+  scope :providers_without_master, -> { where.has { (provider == true) && (master == false) } }
 
   #OPTIMIZE: adding master boolean a default to false, then this could be done
   # scope :buyers, :conditions => {:provider => false, :master => false}
