@@ -140,7 +140,7 @@ end
 namespace :integrate do
 
   task :prepare do
-    ParallelTests::Tasks.run_in_parallel('RAILS_ENV=test rake db:drop db:create db:schema:load multitenant:triggers')
+    ParallelTests::Tasks.run_in_parallel('RAILS_ENV=test bundle exec rails db:environment:set db:drop db:create db:schema:load multitenant:triggers')
 
     Rake::Task['ts:configure'].invoke
   end
