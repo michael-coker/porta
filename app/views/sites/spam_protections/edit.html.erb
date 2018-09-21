@@ -1,3 +1,7 @@
+<% content_for(:sublayout_title) do %>
+  Spam Protection
+<% end %>
+
 <h2>Spam Protection</h2>
 
 <%= semantic_form_for @settings, :url => admin_site_spam_protection_path, :html => {:id => 'spam-protection-settings' } do |form| %>

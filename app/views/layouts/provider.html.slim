@@ -3,7 +3,7 @@ html[lang="en"]
   head
     meta[charset="utf-8"]
     title
-      = content_for?(:title) ? yield(:title) : default_title
+      = content_for?(:sublayout_title) ? yield(:sublayout_title) : content_for?(:title) ? yield(:title) :  default_title
       |  | Red Hat 3scale API Management
     = csrf_meta_tag
     = render 'provider/theme'
