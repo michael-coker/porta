@@ -19,10 +19,8 @@ html[lang="en"]
     = render partial: "/shared/ribbons"
     = render partial: "/shared/provider/user_widget"
     #wrapper
-      nav
-        = link_to provider_admin_dashboard_path, title: "Dashboard" do
-          = render partial: "/provider/logo"
-        = render partial: "/shared/provider/menu"
+      nav.vertical-nav
+
       #inner_wrap.wrap.self_clear
         #border.self_clear
           - if active_submenu

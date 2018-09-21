@@ -3,14 +3,12 @@
   min-width: $layout-wrapper-min-width;
   //max-width:  $layout-wrapper-max-width;
   height: 100%;
-  padding-left: line-height-times(1);
+  //padding-left: line-height-times(1);
   padding-right: line-height-times(1);
 }
 
 #border {
   position: relative;
-  margin-top: -$border-width;
-  border-top: $border-width solid $border-color;
   border-bottom: $border-width solid $border-color;
   padding: line-height-times(1) line-height-times(1) line-height-times(2) line-height-times(1);
   text-align: left;
@@ -20,4 +18,18 @@
 
 #nav {
   height: auto;
+}
+
+.vertical-nav {
+  width: line-height-times(10);
+  height: 100%;
+  background-color: pink;
+  position: fixed;
+}
+
+#border {
+  margin-left: line-height-times(10);
+  margin-top: line-height-times(2.5);
+  position: relative;
+  z-index: 1;
 }
