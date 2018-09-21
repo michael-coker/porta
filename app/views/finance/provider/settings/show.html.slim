@@ -1,3 +1,6 @@
+- content_for(:sublayout_title)
+  = "Billing Settings"
+
 h1 Billing Settings
 = form_for @billing_strategy, url: admin_finance_billing_strategy_path,
            method: :put, html: { class: 'formtastic' } do |f|
