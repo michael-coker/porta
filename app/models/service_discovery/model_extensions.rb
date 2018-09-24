@@ -5,16 +5,9 @@ module ServiceDiscovery
     module Service
       def self.included(base)
         base.class_eval do
-          attr_accessor :discovered
-          attr_accessor :cluster_namespace
-
-          after_commit :import_cluster_definitions, on: :create
+          attr_accessor :source
+          attr_accessor :namespace
         end
-      end
-
-      def import_cluster_definitions
-        return unless discovered
-        ImportClusterServiceDefinitionsWorker.perform_async(self.id, cluster_namespace)
       end
 
       def import_cluster_service_endpoint(cluster_service)
