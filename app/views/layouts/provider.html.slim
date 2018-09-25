@@ -3,7 +3,7 @@ html[lang="en"]
   head
     meta[charset="utf-8"]
     title
-      = content_for?(:sublayout_title) ? yield(:sublayout_title) : content_for?(:title) ? yield(:title) :  default_title
+      = content_for?(:title) ? yield(:title) : default_title
       |  | Red Hat 3scale API Management
     = csrf_meta_tag
     = render 'provider/theme'
@@ -29,10 +29,10 @@ html[lang="en"]
             = render partial: "/shared/provider/submenu"
           = render 'shared/provider/flash', flash: flash
           main#content.self_clear
-            - if content_for :title
-              h1 = content_for :title
             - if controller.sublayout
               = render partial: "/layouts/#{controller.sublayout.to_s}"
             - else
+              - if content_for :title
+                h1 = content_for :title
               = yield
         = render partial: "/provider/footer"

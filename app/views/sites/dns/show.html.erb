@@ -1,4 +1,8 @@
-<% content_for(:sublayout_title) do %>
+<% content_for(:javascripts) do %>
+   <%= javascript_include_tag 'site_dns' %>
+<% end %>
+
+<% content_for(:title) do %>
   DNS Settings
 <% end %>
 
