@@ -21,10 +21,12 @@
 }
 
 .vertical-nav {
-  width: line-height-times(10);
+  //width: line-height-times(10);
   height: 100%;
-  background-color: pink;
+  //background-color: pink;
   position: fixed;
+  z-index: 1000;
+  text-align: left;
 }
 
 #border {
