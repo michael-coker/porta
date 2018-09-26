@@ -32,7 +32,6 @@ html[lang="en"]
             - if controller.sublayout
               = render partial: "/layouts/#{controller.sublayout.to_s}"
             - else
-              - if content_for :title
-                h1 = content_for :title
+              = render 'shared/provider/page_title'
               = yield
         = render partial: "/provider/footer"
