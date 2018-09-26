@@ -2,8 +2,6 @@
   Inbound Email Addresses
 <% end %>
 
-<h2 >Inbound Email Addresses</h2>
-
 <%= semantic_form_for @account, :url => admin_site_emails_url do |form| %>
   <%= form.inputs 'General Support Emails' do %>
     <%= form.input :support_email, :input_html => { :value => @account.support_email }, :hint => 'General support email address. Liquid usage: {{ provider.support_email }}.' %>

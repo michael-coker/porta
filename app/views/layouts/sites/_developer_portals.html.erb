@@ -12,5 +12,8 @@
 </ul>
 
 <div id="tab-content">
+  <% if content_for :title %>
+    <h1><%= content_for :title %></h1>
+  <% end %>
   <%= yield  %>
 </div>
